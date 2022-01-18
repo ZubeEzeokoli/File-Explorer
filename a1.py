@@ -1,3 +1,12 @@
+# a1.py
+
+# Starter code for assignment 1 in ICS 32 Programming with Software Libraries in Python
+
+# Replace the following placeholders with your information.
+
+# Nzubechi Ezeokoli
+# nezeokol@uci.edu
+# 56611321
 from pathlib import Path
 inp = input()
 def recurse(p):
@@ -6,14 +15,14 @@ def recurse(p):
         #Prints files and directories in specified directory recursively
         ctr = 0
         if ctr == 0:
-            for obj in Path(p).iterdir():
+            for obj in sorted(Path(p).iterdir()):
                 if obj.is_file():
                     print(obj)
                     ctr += 1
                 else:
                     ctr = -1
         if ctr > 0 or ctr == -1:
-            for obj in Path(p).iterdir():
+            for obj in sorted(Path(p).iterdir()):
                 if obj.is_dir():
                     print(obj)
                     recurse(obj)
@@ -21,14 +30,14 @@ def recurse(p):
         #Prints files in specified directory recursively
         ctr = 0
         if ctr == 0:
-            for obj in Path(p).iterdir():
+            for obj in sorted(Path(p).iterdir()):
                 if obj.is_file():
                     print(obj)
                     ctr += 1
                 else:
                     ctr = -1
         if ctr > 0 or ctr == -1:
-            for obj in Path(p).iterdir():
+            for obj in sorted(Path(p).iterdir()):
                 if obj.is_file():
                     if not Path(obj).exists():
                         print(obj)
@@ -38,14 +47,14 @@ def recurse(p):
         #Prints files with the same name as the name given in input recursively
         ctr = 0
         if ctr == 0:
-            for obj in Path(p).iterdir():
+            for obj in sorted(Path(p).iterdir()):
                 if obj.is_file() and obj.name == suffix:
                     print(obj)
                     ctr += 1
                 else:
                     ctr = -1
         if ctr > 0 or ctr == -1:
-            for obj in Path(p).iterdir():
+            for obj in sorted(Path(p).iterdir()):
                 if obj.is_dir():
                     recurse(obj)
                 elif obj.is_file() and obj.name == suffix:
@@ -55,14 +64,14 @@ def recurse(p):
         #Prints files with the same suffix as the suffix given in the input recursively
         ctr = 0
         if ctr == 0:
-            for obj in Path(p).iterdir():
+            for obj in sorted(Path(p).iterdir()):
                 if obj.is_file() and obj.suffix[1:] == suffix:
                     print(obj)
                     ctr += 1
                 else:
                     ctr = -1
         if ctr > 0 or ctr == -1:
-            for obj in Path(p).iterdir():
+            for obj in sorted(Path(p).iterdir()):
                 if obj.is_dir():
                     recurse(obj)
                 elif obj.is_file() and obj.suffix[1:] == suffix:
@@ -120,26 +129,26 @@ while inp[:1].upper() != 'Q':
                 elif len(option) == 1:
                         if option[0] == '-f':
                             #Prints files in specified directory
-                            for obj in Path(p).iterdir():
+                            for obj in sorted(Path(p).iterdir()):
                                 if obj.is_file():
                                     print(obj)
                         if option[0] == '-s':
                             #Prints files with the same name as the name given
-                            for obj in Path(p).iterdir():
+                            for obj in sorted(Path(p).iterdir()):
                                 if obj.name == suffix:
                                     print(obj)
                         if option[0] == '-e':
                             #Prints files with the same suffix as the suffix given
-                            for obj in Path(p).iterdir():
+                            for obj in sorted(Path(p).iterdir()):
                                 if obj.suffix[1:] == suffix:
                                     print(obj)
                 elif len(option) == 0:
                     #If no option is given just prints everything in one directory that was specified
                     p = inp[2:]
-                    for obj in Path(p).iterdir():
+                    for obj in sorted(Path(p).iterdir()):
                         if obj.is_file():
                             print(obj)
-                    for obj in Path(p).iterdir():
+                    for obj in sorted(Path(p).iterdir()):
                         if obj.is_dir():
                             print(obj)
                 else:
