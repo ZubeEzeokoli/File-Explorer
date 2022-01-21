@@ -8,7 +8,6 @@
 # nezeokol@uci.edu
 # 56611321
 from pathlib import Path
-inp = input()
 def recurse(p):
     """recursively prints the contents of directories or files depending on what option is chossen"""
     if option[-1] == '-r':
@@ -81,7 +80,7 @@ def recurse(p):
             
         
 
-    
+inp = input()
 while inp[:1].upper() != 'Q':
     if (inp[:1].upper() == 'L' or inp[:1].upper() == 'C' or inp[:1].upper() == 'R' or inp[:1].upper() == 'D') and inp[:2].upper() != 'C:':
         #Error handles if a command was given, if not an error will be printed
@@ -103,7 +102,10 @@ while inp[:1].upper() != 'Q':
                 index = i
                 break
         cmd = inp[0:1]
-        p = inp[2:index-1]
+        if index != 0:
+            p = inp[2:index-1]
+        else:
+            p = inp[2:]
         extra = inp[index:].split()
         option = []
         suffix = ''
@@ -134,9 +136,9 @@ while inp[:1].upper() != 'Q':
                                     print(obj)
                         if option[0] == '-s':
                             #Prints files with the same name as the name given
-                            for obj in sorted(Path(p).iterdir()):
-                                if obj.name == suffix:
-                                    print(obj)
+                                for obj in sorted(Path(p).iterdir()):
+                                    if obj.name == suffix:
+                                        print(obj)
                         if option[0] == '-e':
                             #Prints files with the same suffix as the suffix given
                             for obj in sorted(Path(p).iterdir()):
@@ -144,13 +146,16 @@ while inp[:1].upper() != 'Q':
                                     print(obj)
                 elif len(option) == 0:
                     #If no option is given just prints everything in one directory that was specified
-                    p = inp[2:]
-                    for obj in sorted(Path(p).iterdir()):
-                        if obj.is_file():
-                            print(obj)
-                    for obj in sorted(Path(p).iterdir()):
-                        if obj.is_dir():
-                            print(obj)
+                    try:
+                        p = inp[2:]
+                        for obj in sorted(Path(p).iterdir()):
+                            if obj.is_file():
+                                print(obj)
+                        for obj in sorted(Path(p).iterdir()):
+                            if obj.is_dir():
+                                print(obj)
+                    except FileNotFoundError:
+                        print('Error')
                 else:
                     print('ERROR')
                     
@@ -163,6 +168,8 @@ while inp[:1].upper() != 'Q':
                     if not p1.exists():
                         p1.touch()
                         print(p1)
+                else:
+                    print('ERROR')
                 inp = input()
             elif inp[:1].upper() == 'D':
                 #Deletes the file that is specified
