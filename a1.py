@@ -122,12 +122,14 @@ while inp[:1].upper() != 'Q':
                 suffix += extra[-1]
             if inp[:1].upper() == 'L':
                 #Lists the contents of the user specified directory and performs output based on option and if user wants to recursively
-                if len(option) > 1:
-                    #Recursive call if option has more than 1 element in its list such as ['-r', '-f']
-                    recurse(p)
-                elif len(option) == 1 and option[-1] == '-r':
-                    #Prints everything in the specified directory recursively
-                    recurse(p)
+                if len(option) > 1 or len(option) == 1 and extra[0] == '-r':
+                    #Recursive call if option has more than 1 element in its list such as ['-r', '-f'] or if it is only -r
+                    if len(extra) == 1 and extra[0] == '-r':
+                        recurse(p)
+                    elif extra[1] == '-f' or extra[1] == '-s' or extra[1] == '-e':
+                        recurse(p)
+                    else:
+                        print('ERROR')
                 elif len(option) == 1:
                         if option[0] == '-f':
                             #Prints files in specified directory
